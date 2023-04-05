@@ -15,9 +15,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 
 data class MovieCardViewState(
-    val id: Int,
-    val title: String,
-    val overview: String,
     val imageUrl: String?,
     val isFavorite: Boolean,
 )
@@ -25,25 +22,28 @@ data class MovieCardViewState(
 @Composable
 fun MovieCard(
     movieCardViewState: MovieCardViewState,
-    onCheckedChange: (Boolean) -> Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier.size(width = 200.dp, height = 330.dp)
-            .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
+        modifier = modifier,
         backgroundColor = Color.White,
-        shape = RoundedCornerShape(16.dp),
-        elevation = 10.dp,
+        shape = RoundedCornerShape(15.dp),
+        elevation = 5.dp
     ) {
         Image(
             painter = rememberAsyncImagePainter(model = movieCardViewState.imageUrl),
             contentDescription = "Movie",
             contentScale = ContentScale.Crop,
-            modifier = modifier
-                .size(200.dp, 220.dp)
-
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(220.dp)
         )
-        FavoriteButton(isFavorite = movieCardViewState.isFavorite,onCheckedChange)
+        FavoriteButton(
+            isFavorite = movieCardViewState.isFavorite,
+            onClick,
+            modifier = Modifier.padding(16.dp)
+        )
     }
 }
 
@@ -53,12 +53,10 @@ private fun MovieCardPreview() {
     val isChecked = remember { mutableStateOf(false) }
     MovieCard(
         MovieCardViewState(
-            id = 5,
-            title = "Spider-Man: No Way Home",
-            overview = "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
             imageUrl = "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
             isFavorite = isChecked.value,
         ),
-        onCheckedChange = { isChecked.value = it }
+        onClick = { isChecked.value = !isChecked.value },
+        modifier = Modifier.size(width = 200.dp, height = 330.dp)
     )
 }

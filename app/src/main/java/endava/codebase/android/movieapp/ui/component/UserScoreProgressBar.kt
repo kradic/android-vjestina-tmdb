@@ -17,15 +17,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun UserScoreProgressBar(grade: Float) {
-    Box(contentAlignment = Alignment.Center)
+fun UserScoreProgressBar(
+    grade: Float,
+    size: Int,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+    )
     {
         val tempGrade: String = grade.toString()
-        Text(text = tempGrade, color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 18.sp)
-        Canvas(
-            modifier = Modifier
-                .size(size = 100.dp)
-        ) {
+        Text(
+            text = tempGrade,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold,
+            fontSize = (size / 5).sp
+        )
+        Canvas(modifier = Modifier) {
             drawArc(
                 color = Color(android.graphics.Color.parseColor("#ccffcc")),
                 startAngle = 180f,
@@ -33,7 +42,7 @@ fun UserScoreProgressBar(grade: Float) {
                 useCenter = false,
                 topLeft = Offset(x = 10.dp.toPx(), y = 10.dp.toPx()),
                 style = Stroke(width = 12.dp.toPx()),
-                size = Size(width = 80.dp.toPx(), height = 80.dp.toPx()),
+                size = Size(width = (size - 20).dp.toPx(), height = (size - 20).dp.toPx())
             )
             drawArc(
                 color = Color.Green,
@@ -42,7 +51,7 @@ fun UserScoreProgressBar(grade: Float) {
                 useCenter = false,
                 topLeft = Offset(x = 10.dp.toPx(), y = 10.dp.toPx()),
                 style = Stroke(width = 12.dp.toPx()),
-                size = Size(width = 80.dp.toPx(), height = 80.dp.toPx()),
+                size = Size(width = (size - 20).dp.toPx(), height = (size - 20).dp.toPx())
             )
         }
     }
@@ -50,6 +59,12 @@ fun UserScoreProgressBar(grade: Float) {
 
 @Preview
 @Composable
-private fun UserScoreProgressBarPreview(){
-    UserScoreProgressBar(grade = 7.5f)
+private fun UserScoreProgressBarPreview() {
+    val size: Int = 100
+    UserScoreProgressBar(
+        grade = 7.5f,
+        size = size,
+        modifier = Modifier
+            .size(size = size.dp)
+    )
 }

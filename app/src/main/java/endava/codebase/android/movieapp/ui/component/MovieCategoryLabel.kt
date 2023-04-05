@@ -1,15 +1,18 @@
 package endava.codebase.android.movieapp.ui.component
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import endava.codebase.android.movieapp.R
 
@@ -26,6 +29,7 @@ data class MovieCategoryLabelViewState(
 @Composable
 fun MovieCategory(
     movieCategoryLabelViewState: MovieCategoryLabelViewState,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val text: String = when (movieCategoryLabelViewState.categoryText) {
@@ -36,29 +40,44 @@ fun MovieCategory(
             movieCategoryLabelViewState.categoryText.text
         }
     }
-
-    if (movieCategoryLabelViewState.isSelected) {
-        Text(
-            text = text,
-            textAlign = TextAlign.Center,
-            fontSize = 20.sp,
-            maxLines = 2,
-            fontWeight = FontWeight.Bold,
-            style = TextStyle(textDecoration = TextDecoration.Underline)
-        )
-    } else {
-        Text(text = text, fontSize = 20.sp, maxLines = 2, color = Color.Gray, textAlign = TextAlign.Center)
+    Column(modifier = modifier.width(IntrinsicSize.Max)) {
+        if (movieCategoryLabelViewState.isSelected) {
+            Text(
+                text = text,
+                fontSize = 20.sp,
+                maxLines = 2,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth().clickable { onClick() }
+            )
+            Box(
+                modifier = modifier
+                    .height(3.dp)
+                    .fillMaxWidth()
+                    .background(Color.Black)
+            )
+        } else {
+            Text(
+                text = text,
+                fontSize = 20.sp,
+                maxLines = 2,
+                color = Color.Gray,
+                modifier = Modifier.fillMaxWidth().clickable { onClick() }
+            )
+        }
     }
 }
 
 @Preview
 @Composable
 private fun MovieCategoryPreview() {
+    val isChecked = remember { mutableStateOf(false) }
+
     MovieCategory(
         MovieCategoryLabelViewState(
             itemId = 1,
-            isSelected = true,
-            categoryText = FileRead(textRes = R.string.app_name)/*TextValue(text = "Movie")*/
-        )
+            isSelected = isChecked.value,
+            categoryText = FileRead(textRes = R.string.app_name)
+        ),
+        onClick = { isChecked.value = !isChecked.value },
     )
 }
