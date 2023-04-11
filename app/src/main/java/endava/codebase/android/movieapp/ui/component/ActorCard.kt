@@ -38,7 +38,7 @@ fun ActorCard(
             AsyncImage(model = actorCardViewState.imageUrl,
                 contentDescription = "Actor",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.weight(5f))
+                modifier = Modifier.weight(1f))
             Spacer(
                 modifier = Modifier.height(10.dp))
             Text(

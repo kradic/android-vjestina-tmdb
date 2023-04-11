@@ -36,8 +36,8 @@ fun MovieCard(
             contentDescription = "Movie",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(220.dp)
+                .fillMaxSize()
+
         )
         FavoriteButton(
             isFavorite = movieCardViewState.isFavorite,

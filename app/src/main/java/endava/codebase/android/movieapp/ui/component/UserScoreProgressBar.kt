@@ -2,12 +2,12 @@ package endava.codebase.android.movieapp.ui.component
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -34,13 +34,13 @@ fun UserScoreProgressBar(
             fontWeight = FontWeight.Bold,
             fontSize = (size / 5).sp
         )
-        Canvas(modifier = Modifier) {
+        Canvas(modifier = Modifier
+            .offset(x = 10.dp, y = 10.dp)) {
             drawArc(
                 color = Color(android.graphics.Color.parseColor("#ccffcc")),
                 startAngle = 180f,
                 sweepAngle = 360f,
                 useCenter = false,
-                topLeft = Offset(x = 10.dp.toPx(), y = 10.dp.toPx()),
                 style = Stroke(width = 12.dp.toPx()),
                 size = Size(width = (size - 20).dp.toPx(), height = (size - 20).dp.toPx())
             )
@@ -49,7 +49,6 @@ fun UserScoreProgressBar(
                 startAngle = 180f,
                 sweepAngle = (grade / 10) * -360,
                 useCenter = false,
-                topLeft = Offset(x = 10.dp.toPx(), y = 10.dp.toPx()),
                 style = Stroke(width = 12.dp.toPx()),
                 size = Size(width = (size - 20).dp.toPx(), height = (size - 20).dp.toPx())
             )
