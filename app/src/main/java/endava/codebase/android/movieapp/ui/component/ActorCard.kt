@@ -46,7 +46,6 @@ fun ActorCard(
                 style = MaterialTheme.typography.h6,
                 maxLines = 2,
                 modifier = Modifier
-                    .weight(1f)
                     .padding(horizontal = 10.dp)
                 )
             Text(
@@ -54,7 +53,6 @@ fun ActorCard(
                 style = MaterialTheme.typography.subtitle1,
                 color = Color.Gray,
                 modifier = Modifier
-                    .weight(1f)
                     .padding(horizontal = 10.dp)
                 )
             Spacer(modifier = Modifier.height(10.dp)
